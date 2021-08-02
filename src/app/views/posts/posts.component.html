@@ -1,0 +1,62 @@
+<!-- <p>posts works!</p> -->
+
+<form #postForm='ngForm' (ngSubmit)='addPosts(postForm.value); postForm.reset()' class="container my-3" action=""  >
+    <div>
+      <label for="name" class="form-label">Enter The Post Name</label>
+      <input type="text" name="name"  id="name" ngModel #name='ngModel' required minlength="3" class="form-control">
+      <div class="errors d-flex justify-content-center" *ngIf='name.touched && name.invalid '>
+        <div *ngIf='name.errors?.required '>*name is Required*</div>
+        <div *ngIf='name.errors?.minlength '>*name minimum requiredLength is {{name.errors?.minlength.requiredLength}}*</div>
+    </div>
+    </div>
+    <div class="mb-3">
+      <label for="body" class="form-label">Enter The Content Of Your Post</label>
+      <input type="text" name="body" id="body" ngModel #body='ngModel' required minlength="4" class="form-control">
+      <div class="errors d-flex justify-content-center" *ngIf='body.touched && body.invalid '>
+        <div *ngIf='body.errors?.required '>*body is Required*</div>
+        <div *ngIf='body.errors?.minlength '>*body minimum requiredLength is {{body.errors?.minlength.requiredLength}}*</div>
+    </div>
+    </div>
+    <button type="submit" [disabled]='postForm.invalid'class="btn btn-primary"> submit </button>
+  </form>
+  
+  
+  
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">postId</th>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">E-Mail</th>
+          <th scope="col"> Body </th>
+          <th scope="col"> Edit </th>
+          <th scope="col"> Delete </th>
+  
+  
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor='let post of posts'>
+          <td>{{post.postId}}</td>
+          <td>{{post.id}}</td>
+          <td>{{post.name}}</td>
+          <td>{{post.email}}</td>
+          <td>{{post.body}}</td>
+          <td>
+            <a routerLink='/updatePosts/{{post.id}}'>
+              <button class="btn btn-primary"> Update</button>
+            </a>
+          </td>
+          <td>
+            
+              <button class="btn btn-danger" (click)='deletePosts(post)'> Delete</button>
+            
+          </td>
+       
+  
+        </tr>
+  
+      </tbody>
+    </table>
+  
